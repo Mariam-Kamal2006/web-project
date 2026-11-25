@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up | DriveX</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, hsl(230, 79%, 85%) 0%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .signup-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            max-width: 450px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #ff6600, #ff8533);
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-header h2 {
+            color: white;
+            font-size: 28px;
+        }
+
+        .card-header h2 span {
+            border-bottom: 2px solid white;
+        }
+
+        .card-header p {
+            color: rgba(255, 255, 255, 0.9);
+            margin-top: 8px;
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #ff6600;
+        }
+
+        .input-group input.error {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .error-text {
+            color: #dc3545;
+            font-size: 11px;
+            margin-top: 5px;
+            display: block;
+        }
+
+        .strength-meter {
+            margin-top: 5px;
+            font-size: 12px;
+        }
+
+        .weak { color: #dc3545; }
+        .medium { color: #fd7e14; }
+        .strong { color: #28a745; }
+
+        .terms {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .terms input {
+            width: 18px;
+            height: 18px;
+        }
+
+        .btn-signup {
+            width: 100%;
+            padding: 14px;
+            background: #ff6600;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-signup:hover {
+            background: #e55a00;
+            transform: translateY(-2px);
+        }
+
+        .alert-message {
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .card-footer {
+            padding: 20px;
+            text-align: center;
+            border-top: 1px solid #eee;
+            background: #fafbfc;
+        }
+        #log:hover{
+            color: rgb(72, 162, 231);
+        }
+        .card-footer a {
+            color: #ff6600;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="signup-card">
+    <div class="card-header">
+        <h2>Create <span>Account</span></h2>
+        <p>Join DriveX and rent your dream car</p>
+    </div>
+
+    <div class="card-body">
+        <div id="alertMessage"></div>
+
+        <form id="signupForm">
+            <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" placeholder="John Doe">
+                <span class="error-text" id="nameError"></span>
+            </div>
+
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="email" placeholder="hello@drivex.com">
+                <span class="error-text" id="emailError"></span>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="At least 6 characters">
+                <span class="error-text" id="passwordError"></span>
+                <div class="strength-meter" id="strengthText"></div>
+            </div>
+
+            <div class="input-group">
+                <label>Confirm Password</label>
+                <input type="password" id="confirmPassword" placeholder="Confirm your password">
+                <span class="error-text" id="confirmError"></span>
+            </div>
+
+            <div class="terms">
+                <input type="checkbox" id="termsCheckbox">
+                <label>I agree to the Terms of Service</label>
+            </div>
+
+            <button type="submit" class="btn-signup">Sign Up</button>
+        </form>
+    </div>
+
+    <div class="card-footer">
+        <p>Already have an account? <a href="login.html" id="log">log In</a></p>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Get all elements
+        var form = document.getElementById('signupForm');
+        var fullName = document.getElementById('fullName');
+        var email = document.getElementById('email');
+        var password = document.getElementById('password');
+        var confirmPassword = document.getElementById('confirmPassword');
+        var termsCheckbox = document.getElementById('termsCheckbox');
+        var alertDiv = document.getElementById('alertMessage');
+        
+        // Show message function
+        function showMessage(msg, type) {
+            alertDiv.innerHTML = '<div class="alert-message alert-' + type + '">' + msg + '</div>';
+            setTimeout(function() {
+                alertDiv.innerHTML = '';
+            }, 3000);
+        }
+        
+        // Clear errors
+        function clearErrors() {
+            var errors = document.querySelectorAll('.error-text');
+            for (var i = 0; i < errors.length; i++) {
+                errors[i].innerHTML = '';
+            }
+            var inputs = document.querySelectorAll('#signupForm input');
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].classList.remove('error');
+            }
+        }
+        
+        // Validate Name
+        function validateName(name) {
+            if (!name || name.trim() === '') {
+                return 'Full name is required';
+            }
+            if (name.trim().length < 3) {
+                return 'Name must be at least 3 characters';
+            }
+            return '';
+        }
+        
+        // Validate Email
+        function validateEmail(emailVal) {
+            if (!emailVal || emailVal.trim() === '') {
+                return 'Email is required';
+            }
+            var regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!regex.test(emailVal.trim())) {
+                return 'Enter a valid email address';
+            }
+            return '';
+        }
+        
+        // Check if email exists
+        function emailExists(emailVal) {
+            var users = JSON.parse(localStorage.getItem('users')) || [];
+            for (var i = 0; i < users.length; i++) {
+                if (users[i].email === emailVal.trim().toLowerCase()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        // Validate Password
+        function validatePasswordStrength(pass) {
+            if (!pass) {
+                return { isValid: false, message: 'Password is required', strengthHtml: '' };
+            }
+            if (pass.length < 6) {
+                return { isValid: false, message: 'Password must be at least 6 characters', strengthHtml: '' };
+            }
+            
+            var score = 0;
+            if (pass.length >= 8) score++;
+            if (/[A-Z]/.test(pass)) score++;
+            if (/[0-9]/.test(pass)) score++;
+            
+            var strengthHtml = '';
+            if (score < 2) {
+                strengthHtml = '<span class="weak"> Weak password</span>';
+            } else if (score === 2) {
+                strengthHtml = '<span class="medium"> Medium password</span>';
+            } else {
+                strengthHtml = '<span class="strong"> Strong password</span>';
+            }
+            
+            return { isValid: true, message: '', strengthHtml: strengthHtml };
+        }
+        
+        // Live password strength
+        if (password) {
+            password.addEventListener('input', function() {
+                var result = validatePasswordStrength(password.value);
+                var strengthDiv = document.getElementById('strengthText');
+                if (strengthDiv) {
+                    strengthDiv.innerHTML = result.strengthHtml;
+                }
+            });
+        }
+        
+        // Live confirm password
+        if (confirmPassword) {
+            confirmPassword.addEventListener('input', function() {
+                var confirmError = document.getElementById('confirmError');
+                if (confirmPassword.value && password.value !== confirmPassword.value) {
+                    confirmError.innerHTML = 'Passwords do not match';
+                    confirmPassword.classList.add('error');
+                } else {
+                    confirmError.innerHTML = '';
+                    confirmPassword.classList.remove('error');
+                }
+            });
+        }
+        
+        // Form submit
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                // IMPORTANT: Stop form from submitting
+                e.preventDefault();
+                e.stopPropagation();
+                
+                // Clear previous errors
+                clearErrors();
+                
+                // Get values
+                var nameVal = fullName ? fullName.value : '';
+                var emailVal = email ? email.value : '';
+                var passVal = password ? password.value : '';
+                var confirmVal = confirmPassword ? confirmPassword.value : '';
+                var termsChecked = termsCheckbox ? termsCheckbox.checked : false;
+                
+                var hasError = false;
+                
+                // 1. Validate Name
+                var nameErr = validateName(nameVal);
+                if (nameErr) {
+                    document.getElementById('nameError').innerHTML = nameErr;
+                    if (fullName) fullName.classList.add('error');
+                    hasError = true;
+                }
+                
+                // 2. Validate Email
+                var emailErr = validateEmail(emailVal);
+                if (emailErr) {
+                    document.getElementById('emailError').innerHTML = emailErr;
+                    if (email) email.classList.add('error');
+                    hasError = true;
+                } else if (emailExists(emailVal)) {
+                    document.getElementById('emailError').innerHTML = 'This email is already registered';
+                    if (email) email.classList.add('error');
+                    hasError = true;
+                }
+                
+                // 3. Validate Password
+                var passResult = validatePasswordStrength(passVal);
+                if (!passResult.isValid) {
+                    document.getElementById('passwordError').innerHTML = passResult.message;
+                    if (password) password.classList.add('error');
+                    hasError = true;
+                }
+                
+                // 4. Validate Confirm Password
+                if (!confirmVal) {
+                    document.getElementById('confirmError').innerHTML = 'Please confirm your password';
+                    if (confirmPassword) confirmPassword.classList.add('error');
+                    hasError = true;
+                } else if (passVal !== confirmVal) {
+                    document.getElementById('confirmError').innerHTML = 'Passwords do not match';
+                    if (confirmPassword) confirmPassword.classList.add('error');
+                    hasError = true;
+                }
+                
+                // 5. Validate Terms
+                if (!termsChecked) {
+                    showMessage('Please agree to the Terms of Service', 'error');
+                    hasError = true;
+                }
+                
+                // If no errors, save to localStorage
+                if (!hasError) {
+                    // Get existing users
+                    var users = JSON.parse(localStorage.getItem('users')) || [];
+                    
+                    // Create new user
+                    var newUser = {
+                        id: Date.now(),
+                        name: nameVal.trim(),
+                        email: emailVal.trim().toLowerCase(),
+                        password: passVal,
+                        createdAt: new Date().toISOString()
+                    };
+                    
+                    // Add to array
+                    users.push(newUser);
+                    
+                    // Save to localStorage
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Show success
+                    showMessage(' Welcome ' + nameVal.trim() + '! Account created. Redirecting...', 'success');
+                    
+                    // Reset form
+                    form.reset();
+                    document.getElementById('strengthText').innerHTML = '';
+                    
+                    // Redirect after 2 seconds
+                    setTimeout(function() {
+                        window.location.href = 'html.html';
+                    }, 2000);
+                } else {
+                    showMessage(' Please fix the errors above', 'error');
+                }
+                
+                // Return false to prevent any default behavior
+                return false;
+            });
+        }
+    })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+      <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DriveX | Premium Car Rental</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="css .css">
+</head>
+    <body>
+         <script src="https://unpkg.com/scrollreveal"></script>
+    <script src="javascript.js"></script>
+   <header><div class="nav container">
+            <div class="header-btn">
+        <button id="logoutButton" onclick="logout()" class="logoutButton">logout</button>
+    </div></header>
+      <section style="margin-top:200px;margin-bottom:200px;position: relative;" id="order" class="order">
+    <div class="container">
+
+        <div class="heading"> 
+            <span>Order Your Car</span>
+            <h1>Complete Your Booking</h1>
+        </div>
+<br>
+        <div class="form-container">
+            <form id="orderForm">
+
+                <div class="input-box">
+                    <span>Product Name</span>
+                    <input type="text" id="product" placeholder="Car name">
+                </div>
+
+                <div class="input-box">
+                    <span>Quantity</span>
+                    <input type="number" id="quantity" min="1" placeholder="1">
+                </div>
+
+                <div class="input-box">
+                    <span>Phone Number</span>
+                    <input type="tel" id="phone" placeholder="01xxxxxxxxx">
+                </div>
+
+                <div class="input-box">
+                    <span>Address</span>
+                    <input type="text" id="address" placeholder="Your address">
+                </div>
+                
+                <input id="but1" type="submit" value="Order Now" class="btn" style="position: absolute;
+                width:50%;margin:200px 100px 1px 100px;" onclick="send()">
+
+            </form>
+
+            <div class="success-message" id="successMsg">
+                ✅ Your order has been placed successfully!
+            </div>
+
+        </div>
+    </div>
+
+
+
+    
+</section>  
+    </body>
+</html>
