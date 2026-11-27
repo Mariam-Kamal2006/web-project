@@ -16,7 +16,6 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Building image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/web-project "web project/" 
-
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/web-project .
       - name: push to docker hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/web-project
